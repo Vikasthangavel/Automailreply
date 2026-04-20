@@ -26,12 +26,14 @@ class CustomFormatter(logging.Formatter):
     RESET = '\033[0m'
     
     def format(self, record):
+        level = record.levelname
         if sys.stdout.isatty():
-            color = self.COLORS.get(record.levelname, '')
-            record.levelname = f"{color}{record.levelname}{self.RESET}"
-        
-        log_message = f"[{record.created}] [{record.levelname}] {record.name} - {record.getMessage()}"
-        return log_message
+            color = self.COLORS.get(level, '')
+            level = f"{color}{level}{self.RESET}"
+
+        # Keep console output compact and flow-oriented.
+        time_str = datetime.fromtimestamp(record.created).strftime("%H:%M:%S")
+        return f"{time_str} | {level:<8} | {record.getMessage()}"
 
 
 def get_logger(name):
