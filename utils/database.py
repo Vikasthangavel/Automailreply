@@ -1,7 +1,3 @@
-"""
-Database module for tracking processed emails and system operations.
-Uses SQLite for lightweight, file-based persistence.
-"""
 
 import sqlite3
 from datetime import datetime
